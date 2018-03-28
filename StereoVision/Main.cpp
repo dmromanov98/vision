@@ -7,6 +7,12 @@
 #include <nanogui\window.h>
 
 #include <nanogui\nanogui.h>
+#include <nanogui\imageview.h>
+#include <nanogui\stb_image.h>
+#include <nanogui\imagepanel.h>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <nanogui\stb_image.h>
 
 using namespace std;
 using namespace nanogui;
@@ -19,21 +25,8 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-
-
-enum test_enum {
-	Item1 = 0,
-	Item2,
-	Item3
-};
-
 bool bvar = true;
-int ivar = 12345678;
-double dvar = 3.1415926;
-float fvar = (float)dvar;
-std::string strval = "A string";
-test_enum enumval = Item2;
-Color colval(0.5f, 0.5f, 0.7f, 1.f);
+
 
 int main()
 {
@@ -44,28 +37,13 @@ int main()
 	bool enabled = true;
 	FormHelper *gui = new FormHelper(screen);
 	Window *window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
-	gui->addGroup("Basic types");
+	gui->addGroup("Cameras");
 	gui->addVariable("bool", bvar);
-	gui->addVariable("string", strval);
 
-	gui->addGroup("Validating fields");
-	gui->addVariable("int", ivar)->setSpinnable(true);
-	gui->addVariable("float", fvar);
-	gui->addVariable("double", dvar)->setSpinnable(true);
+	//auto imageView = new ImageView(window, mImagesData[0].first.texture());
+	//imageView->bindImage(mImagesData[i].first.texture());
 
-	gui->addGroup("Complex types");
-	gui->addVariable("Enumeration", enumval, enabled)
-		->setItems({ "Item 1", "Item 2", "Item 3" });
-	gui->addVariable("Color", colval)
-		->setFinalCallback([](const Color &c) {
-		std::cout << "ColorPicker Final Callback: ["
-			<< c.r() << ", "
-			<< c.g() << ", "
-			<< c.b() << ", "
-			<< c.w() << "]" << std::endl;
-	});
-
-	gui->addGroup("Other widgets");
+	gui->addGroup("Some buttons");
 	gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
 
 	screen->setVisible(true);
